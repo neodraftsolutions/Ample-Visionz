@@ -285,21 +285,25 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
 .proj-image-row { display: flex; gap: 1.5rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 1rem; cursor: grab; }
 .proj-image-row::-webkit-scrollbar { display: none; }
 .proj-image-row.active { cursor: grabbing; }
+
+/* FIX: Image aspect ratio guarantee without cropping */
 .proj-img-uncropped {
-  height: 550px; width: auto; object-fit: contain; max-width: 90vw;
-  background: rgba(0,0,0,0.03); border-radius: 4px; 
-  cursor: zoom-in; user-select: none; -webkit-user-drag: none; /* Allows click zoom & blocks native drag */
+  height: 550px; width: auto; max-width: 90vw; 
+  object-fit: contain; background: transparent; border-radius: 4px; 
+  cursor: zoom-in; user-select: none; -webkit-user-drag: none; 
   box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: opacity 0.3s;
 }
 .proj-img-uncropped:hover { opacity: 0.85; }
 
 /* ===================== ABOUT / BEFORE & AFTER ===================== */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-bottom: 8rem; }
-.about-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: #dcd3c8; border-radius: 4px; }
+/* FIX: Ensure profile picture is never cropped */
+.about-img { width: 100%; height: auto; max-height: 600px; object-fit: contain; background: transparent; border-radius: 4px; }
 .about-quote { font-family: var(--serif); font-size: 2rem; color: var(--accent); font-style: italic; line-height: 1.3; margin-bottom: 2rem; border-left: 2px solid var(--accent); padding-left: 1.5rem; }
 
-.ba-slider-wrap { position: relative; overflow: hidden; width: 100%; aspect-ratio: 16/9; user-select: none; background: #e0e0e0; border-radius: 8px; margin-bottom: 4rem; }
-.ba-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ba-slider-wrap { position: relative; overflow: hidden; width: 100%; aspect-ratio: 16/9; user-select: none; background: transparent; border-radius: 8px; margin-bottom: 4rem; }
+/* FIX: Ensure before/after slider images are not cropped */
+.ba-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .ba-img-after { clip-path: inset(0 50% 0 0); }
 .ba-handle {
   position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #fff; transform: translateX(-50%); z-index: 10;
@@ -572,13 +576,13 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
         <p class="proj-desc">A premium recreational clubhouse tailored for railway officials.</p>
         <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         <div class="proj-image-row horizontal-drag">
-          <img src="rail1.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
-          <img src="rail2.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
-          <img src="rail3.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
-          <img src="rail4.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
-          <img src="rail5.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
-          <img src="rail6.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
-          <img src="rail7.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="Rail1.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="Rail2.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="Rail3.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="Rail4.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="Rail5.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="Rail6.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="Rail7.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
         </div>
       </div>
 
@@ -672,8 +676,8 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
         
         <div class="ba-slider-wrap" id="baSlider">
           <!-- Replaced with the requested images -->
-          <img class="ba-img" src="before.jpeg" alt="Before">
-          <img class="ba-img ba-img-after" id="baAfter" src="after.jpeg" alt="After">
+          <img class="ba-img" src="Before.jpeg" alt="Before">
+          <img class="ba-img ba-img-after" id="baAfter" src="After.jpeg" alt="After">
           <div class="ba-handle" id="baHandle">
             <div class="ba-handle-btn">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 10H14M4 7l-3 3 3 3M16 7l3 3-3 3" stroke="#A0714F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
