@@ -1121,67 +1121,102 @@ window.addEventListener('load', () => {
   const activeBuildingMaterials = []; 
   const streetLightBulbs = [];
 
-  function createPhysicalBuildingMaterial(color, width, height) {
-    const canvas = document.createElement('canvas');
-    const bumpCanvas = document.createElement('canvas');
-    const emissiveCanvas = document.createElement('canvas'); 
-    
-    canvas.width = 1024; canvas.height = 1024;
-    bumpCanvas.width = 1024; bumpCanvas.height = 1024;
-    emissiveCanvas.width = 1024; emissiveCanvas.height = 1024;
-    
-    const ctx = canvas.getContext('2d');
-    const bCtx = bumpCanvas.getContext('2d');
-    const eCtx = emissiveCanvas.getContext('2d');
+  const baseTextures = {};
+  
+  // Generate 5 base textures (one for each color) to prevent canvas memory leaks
+  function initBuildingTextures() {
+    buildingColors.forEach(color => {
+      const canvas = document.createElement('canvas');
+      const bumpCanvas = document.createElement('canvas');
+      const emissiveCanvas = document.createElement('canvas'); 
+      
+      // 512x512 is plenty and saves massive amounts of GPU memory
+      canvas.width = 512; canvas.height = 512;
+      bumpCanvas.width = 512; bumpCanvas.height = 512;
+      emissiveCanvas.width = 512; emissiveCanvas.height = 512;
+      
+      const ctx = canvas.getContext('2d');
+      const bCtx = bumpCanvas.getContext('2d');
+      const eCtx = emissiveCanvas.getContext('2d');
 
-    ctx.fillStyle = color;
-    ctx.fillRect(0, 0, 1024, 1024);
-    bCtx.fillStyle = '#ffffff'; 
-    bCtx.fillRect(0, 0, 1024, 1024);
-    eCtx.fillStyle = '#000000'; 
-    eCtx.fillRect(0, 0, 1024, 1024);
+      ctx.fillStyle = color;
+      ctx.fillRect(0, 0, 512, 512);
+      bCtx.fillStyle = '#ffffff'; 
+      bCtx.fillRect(0, 0, 512, 512);
+      eCtx.fillStyle = '#000000'; 
+      eCtx.fillRect(0, 0, 512, 512);
 
-    const rows = Math.floor(height * 1.5);
-    const cols = Math.floor(width * 1.5);
-    const padX = 1024 / cols;
-    const padY = 1024 / rows;
+      const rows = 10;
+      const cols = 10;
+      const padX = 512 / cols;
+      const padY = 512 / rows;
 
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        if (Math.random() > 0.1) { 
-          const isLit = Math.random() > 0.85; 
-          
-          ctx.fillStyle = isLit ? '#ffcc88' : '#2a4d6e'; 
-          
-          const w = padX * 0.8;
-          const h = padY * 0.8;
-          const px = c * padX + (padX - w) / 2;
-          const py = r * padY + (padY - h) / 2;
-          
-          ctx.fillRect(px, py, w, h);
-          bCtx.fillStyle = '#000000';
-          bCtx.fillRect(px, py, w, h);
-          
-          if (isLit) {
-              eCtx.fillStyle = '#ffaa44';
-              eCtx.fillRect(px, py, w, h);
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          if (Math.random() > 0.1) { 
+            const isLit = Math.random() > 0.85; 
+            
+            ctx.fillStyle = isLit ? '#ffcc88' : '#2a4d6e'; 
+            
+            const w = padX * 0.8;
+            const h = padY * 0.8;
+            const px = c * padX + (padX - w) / 2;
+            const py = r * padY + (padY - h) / 2;
+            
+            ctx.fillRect(px, py, w, h);
+            bCtx.fillStyle = '#000000';
+            bCtx.fillRect(px, py, w, h);
+            
+            if (isLit) {
+                eCtx.fillStyle = '#ffaa44';
+                eCtx.fillRect(px, py, w, h);
+            }
           }
         }
       }
-    }
 
-    const tex = new THREE.CanvasTexture(canvas);
-    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    const bumpTex = new THREE.CanvasTexture(bumpCanvas);
-    bumpTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    const emissiveTex = new THREE.CanvasTexture(emissiveCanvas);
-    emissiveTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      const tex = new THREE.CanvasTexture(canvas);
+      const bumpTex = new THREE.CanvasTexture(bumpCanvas);
+      const emissiveTex = new THREE.CanvasTexture(emissiveCanvas);
+      
+      const maxAniso = renderer.capabilities.getMaxAnisotropy();
+      [tex, bumpTex, emissiveTex].forEach(t => {
+        t.anisotropy = maxAniso;
+        t.wrapS = THREE.RepeatWrapping;
+        t.wrapT = THREE.RepeatWrapping;
+      });
+
+      baseTextures[color] = { map: tex, bumpMap: bumpTex, emissiveMap: emissiveTex };
+    });
+  }
+  
+  initBuildingTextures();
+
+  function createPhysicalBuildingMaterial(color, width, height) {
+    const base = baseTextures[color];
+    
+    // Clone texture references to apply individual repeats based on building size
+    const map = base.map.clone();
+    const bumpMap = base.bumpMap.clone();
+    const emissiveMap = base.emissiveMap.clone();
+    
+    map.needsUpdate = true;
+    bumpMap.needsUpdate = true;
+    emissiveMap.needsUpdate = true;
+    
+    // Set repeating multiplier to maintain identical visual window density 
+    const repeatX = width * 0.15;
+    const repeatY = height * 0.15;
+    
+    map.repeat.set(repeatX, repeatY);
+    bumpMap.repeat.set(repeatX, repeatY);
+    emissiveMap.repeat.set(repeatX, repeatY);
 
     const material = new THREE.MeshPhysicalMaterial({ 
-      map: tex, 
-      bumpMap: bumpTex,
+      map: map, 
+      bumpMap: bumpMap,
       bumpScale: 0.08,
-      emissiveMap: emissiveTex,
+      emissiveMap: emissiveMap,
       emissive: new THREE.Color(0xffffff),
       emissiveIntensity: 0.2, 
       roughness: 0.3, 
