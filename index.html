@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Ample Visionz | Architecture & 3D Design</title>
 <meta name="description" content="Premium architecture, interior design, landscape & 3D visualization firm in Hubballi, Karnataka.">
+<meta name="robots" content="index, follow">
+<!-- Open Graph / Social Sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ample Visionz | Architecture & 3D Design">
+<meta property="og:description" content="Premium architecture, interior design, landscape & 3D visualization firm in Hubballi, Karnataka.">
+<meta property="og:image" content="logo.png">
+<meta property="og:site_name" content="Ample Visionz">
+<!-- WhatsApp / Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ample Visionz | Architecture & 3D Design">
+<meta name="twitter:description" content="Premium architecture, interior design, landscape & 3D visualization firm in Hubballi, Karnataka.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -215,6 +226,15 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
 .hub-status .dot { width: 8px; height: 8px; background: #3DBD7C; border-radius: 50%; box-shadow: 0 0 8px #3DBD7C; animation: pulse 2s infinite; }
 @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.5; } }
 
+/* Mobile Nav Button */
+.mobile-nav-btn {
+  display: none; background: none; border: none;
+  color: var(--text-main); font-family: var(--sans);
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700;
+  cursor: pointer; padding: 0.5rem; transition: color 0.3s;
+}
+.hero-overlay.night-mode .mobile-nav-btn { color: #ffffff; }
+
 /* ===================== CONTENT VIEWS (Common) ===================== */
 .content-view { background: var(--bg-content); }
 .content-wrapper { padding: 10rem 5% 5rem; max-width: 1400px; margin: 0 auto; }
@@ -343,9 +363,20 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
   /* Hero Mobile Fixes */
   .hero-overlay { padding: 2rem 5%; justify-content: space-between; }
   .hero-top { margin-top: 0; }
-  .hub-nav-wrapper { padding: 1.5rem; margin-bottom: 1rem; border-radius: 20px; }
-  .hub-nav { flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; }
-  .hub-nav-list { flex-direction: column; gap: 1.2rem; align-items: center; justify-content: center; width: 100%; }
+  .hub-nav-wrapper { padding: 1.2rem; margin-bottom: 1rem; border-radius: 20px; }
+  
+  /* Mobile Bottom Bar Navigation */
+  .hub-nav { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0; }
+  .mobile-nav-btn { display: block; }
+  .scroll-prompt { display: none; }
+  
+  /* Dropdown Menu styling for Mobile */
+  .hub-nav-list { 
+    display: none; flex-direction: column; gap: 1.2rem; align-items: center; justify-content: center; width: 100%; 
+    margin-top: 1rem; padding-top: 1.2rem; border-top: 1px solid rgba(0,0,0,0.1);
+  }
+  .hero-overlay.night-mode .hub-nav-list { border-top-color: rgba(255,255,255,0.1); }
+  .hub-nav-list.active { display: flex; animation: slideDown 0.3s ease; }
   
   /* Make time toggle horizontal on mobile and put it at the top right */
   .time-toggle { flex-direction: row; top: 2%; right: 5%; transform: none; padding: 5px; border-radius: 30px; }
@@ -354,6 +385,11 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
   /* Projects Fixes */
   .proj-title { font-size: 2.2rem; }
   .proj-img-uncropped { height: 350px; }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -381,15 +417,15 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
     <div class="hero-top">
       <div class="hero-logo-container">
         <!-- Static Logo for Hero -->
-        <img id="hero-logo" src="ample visionz png for posters.png" alt="Ample Visionz Logo" style="width: 100%; height: auto; max-width: 500px; display: block; margin: 0 auto; will-change: transform;">
+        <img id="hero-logo" src="ample-visionz-logo.png" alt="Ample Visionz Logo" style="width: 100%; height: auto; max-width: 500px; display: block; margin: 0 auto; will-change: transform;">
       </div>
       <h1 class="hero-tagline">Crafting Timeless Spaces & Immersive Environments</h1>
       <a onclick="navigateTo('view-estimator')" class="hero-cta">Start Your Project</a>
     </div>
 
     <div class="time-toggle">
-      <button class="time-btn" data-time="day" title="Day">☀️</button>
-      <button class="time-btn active" data-time="golden" title="Golden Hour">🌅</button>
+      <button class="time-btn active" data-time="day" title="Day">☀️</button>
+      <button class="time-btn" data-time="golden" title="Golden Hour">🌅</button>
       <button class="time-btn" data-time="night" title="Night">🌙</button>
     </div>
 
@@ -398,9 +434,12 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
       <div class="scroll-prompt">Select a destination below</div>
       <nav class="hub-nav">
         <div class="hub-status">
-          <span class="dot"></span> Accepting New Projects
+          <span class="dot"></span>
+          <!-- To change status: replace the text below. Options: "Accepting New Projects" / "Fully Booked" -->
+          Accepting New Projects
         </div>
-        <ul class="hub-nav-list">
+        <button class="mobile-nav-btn" onclick="toggleMobileNav()">Menu <span style="font-size: 1.2em; vertical-align: middle;">☰</span></button>
+        <ul class="hub-nav-list" id="hub-nav-list">
           <li><a class="hub-nav-link" onclick="navigateTo('view-projects')">Projects</a></li>
           <li><a class="hub-nav-link" onclick="navigateTo('view-about')">About Us</a></li>
           <li><a class="hub-nav-link" onclick="navigateTo('view-estimator')">Estimator</a></li>
@@ -422,31 +461,45 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
     <div class="proj-tabs">
       <button class="proj-tab active" data-target="proj-res" onclick="switchTab('proj-res')">Residential</button>
       <button class="proj-tab" data-target="proj-com" onclick="switchTab('proj-com')">Commercial</button>
+      <button class="proj-tab" data-target="proj-community" onclick="switchTab('proj-community')">Community</button>
       <button class="proj-tab" data-target="proj-int" onclick="switchTab('proj-int')">Interior</button>
     </div>
 
     <!-- RESIDENTIAL -->
     <div id="proj-res" class="proj-category active">
+
+      <div class="project-block">
+        <h3 class="proj-title">Navven Park Apartment</h3>
+        <p class="proj-desc">A contemporary residential complex designed for elevated urban living.</p>
+        <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="proj-image-row horizontal-drag">
+          <img src="rv.jpeg" class="proj-img-uncropped" loading="lazy" alt="Navven Park Apartment">
+          <img src="rv1.jpeg" class="proj-img-uncropped" loading="lazy" alt="Navven Park Apartment">
+          <img src="rv2.jpeg" class="proj-img-uncropped" loading="lazy" alt="Navven Park Apartment">
+          <img src="rv3.jpeg" class="proj-img-uncropped" loading="lazy" alt="Navven Park Apartment">
+          <img src="rv4.jpeg" class="proj-img-uncropped" loading="lazy" alt="Navven Park Apartment">
+        </div>
+      </div>
       
       <div class="project-block">
         <h3 class="proj-title">One curve Apartment</h3>
         <p class="proj-desc">A refined approach to modern residential living with sweeping curves.</p>
         <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         <div class="proj-image-row horizontal-drag">
-          <img src="9.jpeg" class="proj-img-uncropped" alt="One curve Apartment">
-          <img src="one curve.jpeg" class="proj-img-uncropped" alt="One curve Apartment">
+          <img src="9.jpeg" class="proj-img-uncropped" loading="lazy" alt="One curve Apartment">
+          <img src="one curve.jpeg" class="proj-img-uncropped" loading="lazy" alt="One curve Apartment">
         </div>
       </div>
 
       <div class="project-block">
-        <h3 class="proj-title">Coartyard Villa</h3>
+        <h3 class="proj-title">Courtyard Villa</h3>
         <p class="proj-desc">A seamless blend of indoor and outdoor spaces centered around nature.</p>
         <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         <div class="proj-image-row horizontal-drag">
-          <img src="coaryard villa.jpeg" class="proj-img-uncropped" alt="Coartyard Villa">
-          <img src="1D.jpeg" class="proj-img-uncropped" alt="Coartyard Villa">
-          <img src="1C.jpeg" class="proj-img-uncropped" alt="Coartyard Villa">
-          <img src="1B.jpeg" class="proj-img-uncropped" alt="Coartyard Villa">
+          <img src="courtyard-villa.jpeg" class="proj-img-uncropped" loading="lazy" alt="Courtyard Villa">
+          <img src="1D.jpeg" class="proj-img-uncropped" loading="lazy" alt="Courtyard Villa">
+          <img src="1C.jpeg" class="proj-img-uncropped" loading="lazy" alt="Courtyard Villa">
+          <img src="1B.jpeg" class="proj-img-uncropped" loading="lazy" alt="Courtyard Villa">
         </div>
       </div>
 
@@ -455,15 +508,15 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
         <p class="proj-desc">Timeless exposed brick architecture echoing warmth and rustic charm.</p>
         <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         <div class="proj-image-row horizontal-drag">
-          <img src="B1.jpeg" class="proj-img-uncropped" alt="Jamboti brick house">
-          <img src="B2.jpeg" class="proj-img-uncropped" alt="Jamboti brick house">
-          <img src="B3.jpeg" class="proj-img-uncropped" alt="Jamboti brick house">
-          <img src="B4.jpeg" class="proj-img-uncropped" alt="Jamboti brick house">
-          <img src="B5.jpeg" class="proj-img-uncropped" alt="Jamboti brick house">
-          <img src="B6.jpeg" class="proj-img-uncropped" alt="Jamboti brick house">
-          <img src="B7.jpeg" class="proj-img-uncropped" alt="Jamboti brick house">
-          <img src="B8.jpeg" class="proj-img-uncropped" alt="Jamboti brick house">
-          <img src="B9.jpeg" class="proj-img-uncropped" alt="Jamboti brick house">
+          <img src="B1.jpeg" class="proj-img-uncropped" loading="lazy" alt="Jamboti brick house">
+          <img src="B2.jpeg" class="proj-img-uncropped" loading="lazy" alt="Jamboti brick house">
+          <img src="B3.jpeg" class="proj-img-uncropped" loading="lazy" alt="Jamboti brick house">
+          <img src="B4.jpeg" class="proj-img-uncropped" loading="lazy" alt="Jamboti brick house">
+          <img src="B5.jpeg" class="proj-img-uncropped" loading="lazy" alt="Jamboti brick house">
+          <img src="B6.jpeg" class="proj-img-uncropped" loading="lazy" alt="Jamboti brick house">
+          <img src="B7.jpeg" class="proj-img-uncropped" loading="lazy" alt="Jamboti brick house">
+          <img src="B8.jpeg" class="proj-img-uncropped" loading="lazy" alt="Jamboti brick house">
+          <img src="B9.jpeg" class="proj-img-uncropped" loading="lazy" alt="Jamboti brick house">
         </div>
       </div>
 
@@ -472,10 +525,10 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
         <p class="proj-desc">A collection of bespoke elevations and architectural concepts.</p>
         <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         <div class="proj-image-row horizontal-drag">
-          <img src="jk.jpeg" class="proj-img-uncropped" alt="Other Residential">
-          <img src="ASD.jpeg" class="proj-img-uncropped" alt="Other Residential">
-          <img src="66eveningview.jpeg" class="proj-img-uncropped" alt="Other Residential">
-          <img src="DN.jpeg" class="proj-img-uncropped" alt="Other Residential">
+          <img src="jk.jpeg" class="proj-img-uncropped" loading="lazy" alt="Other Residential">
+          <img src="ASD.jpeg" class="proj-img-uncropped" loading="lazy" alt="Other Residential">
+          <img src="66eveningview.jpeg" class="proj-img-uncropped" loading="lazy" alt="Other Residential">
+          <img src="DN.jpeg" class="proj-img-uncropped" loading="lazy" alt="Other Residential">
         </div>
       </div>
 
@@ -485,27 +538,16 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
     <div id="proj-com" class="proj-category">
       
       <div class="project-block">
-        <h3 class="proj-title">Abbayya Education Society</h3>
-        <p class="proj-desc">An inspiring institutional facility built for modern education needs.</p>
-        <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-        <div class="proj-image-row horizontal-drag">
-          <img src="Abbayya.jpeg" class="proj-img-uncropped" alt="Abbayya Education Society">
-          <img src="Abbayya1.jpeg" class="proj-img-uncropped" alt="Abbayya Education Society">
-          <img src="Abbayya2.jpeg" class="proj-img-uncropped" alt="Abbayya Education Society">
-        </div>
-      </div>
-
-      <div class="project-block">
         <h3 class="proj-title">Peninsula Building (Triangle)</h3>
         <p class="proj-desc">A striking triangular commercial elevation maximizing corner plot dynamics.</p>
         <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         <div class="proj-image-row horizontal-drag">
-          <img src="elevation1.jpeg" class="proj-img-uncropped" alt="Peninsula Building">
-          <img src="elevation2.jpeg" class="proj-img-uncropped" alt="Peninsula Building">
-          <img src="elevation3.jpeg" class="proj-img-uncropped" alt="Peninsula Building">
-          <img src="elevation4.jpeg" class="proj-img-uncropped" alt="Peninsula Building">
-          <img src="elevation5.jpeg" class="proj-img-uncropped" alt="Peninsula Building">
-          <img src="elevation6.jpeg" class="proj-img-uncropped" alt="Peninsula Building">
+          <img src="elevation1.jpeg" class="proj-img-uncropped" loading="lazy" alt="Peninsula Building">
+          <img src="elevation2.jpeg" class="proj-img-uncropped" loading="lazy" alt="Peninsula Building">
+          <img src="elevation3.jpeg" class="proj-img-uncropped" loading="lazy" alt="Peninsula Building">
+          <img src="elevation4.jpeg" class="proj-img-uncropped" loading="lazy" alt="Peninsula Building">
+          <img src="elevation5.jpeg" class="proj-img-uncropped" loading="lazy" alt="Peninsula Building">
+          <img src="elevation6.jpeg" class="proj-img-uncropped" loading="lazy" alt="Peninsula Building">
         </div>
       </div>
 
@@ -514,14 +556,14 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
         <p class="proj-desc">A comprehensive sports facility designed for community engagement.</p>
         <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         <div class="proj-image-row horizontal-drag">
-          <img src="ground1.jpeg" class="proj-img-uncropped" alt="Cricket Ground">
-          <img src="ground2.jpeg" class="proj-img-uncropped" alt="Cricket Ground">
-          <img src="ground3.jpeg" class="proj-img-uncropped" alt="Cricket Ground">
-          <img src="ground4.jpeg" class="proj-img-uncropped" alt="Cricket Ground">
-          <img src="ground5.jpeg" class="proj-img-uncropped" alt="Cricket Ground">
-          <img src="ground6.jpeg" class="proj-img-uncropped" alt="Cricket Ground">
-          <img src="ground7.jpeg" class="proj-img-uncropped" alt="Cricket Ground">
-          <img src="ground8.jpeg" class="proj-img-uncropped" alt="Cricket Ground">
+          <img src="ground1.jpeg" class="proj-img-uncropped" loading="lazy" alt="Cricket Ground">
+          <img src="ground2.jpeg" class="proj-img-uncropped" loading="lazy" alt="Cricket Ground">
+          <img src="ground3.jpeg" class="proj-img-uncropped" loading="lazy" alt="Cricket Ground">
+          <img src="ground4.jpeg" class="proj-img-uncropped" loading="lazy" alt="Cricket Ground">
+          <img src="ground5.jpeg" class="proj-img-uncropped" loading="lazy" alt="Cricket Ground">
+          <img src="ground6.jpeg" class="proj-img-uncropped" loading="lazy" alt="Cricket Ground">
+          <img src="ground7.jpeg" class="proj-img-uncropped" loading="lazy" alt="Cricket Ground">
+          <img src="ground8.jpeg" class="proj-img-uncropped" loading="lazy" alt="Cricket Ground">
         </div>
       </div>
 
@@ -530,13 +572,47 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
         <p class="proj-desc">A premium recreational clubhouse tailored for railway officials.</p>
         <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         <div class="proj-image-row horizontal-drag">
-          <img src="Rail1.jpeg" class="proj-img-uncropped" alt="South Western Railways Club">
-          <img src="Rail2.jpeg" class="proj-img-uncropped" alt="South Western Railways Club">
-          <img src="Rail3.jpeg" class="proj-img-uncropped" alt="South Western Railways Club">
-          <img src="Rail4.jpeg" class="proj-img-uncropped" alt="South Western Railways Club">
-          <img src="Rail5.jpeg" class="proj-img-uncropped" alt="South Western Railways Club">
-          <img src="Rail6.jpeg" class="proj-img-uncropped" alt="South Western Railways Club">
-          <img src="Rail7.jpeg" class="proj-img-uncropped" alt="South Western Railways Club">
+          <img src="rail1.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="rail2.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="rail3.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="rail4.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="rail5.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="rail6.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+          <img src="rail7.jpeg" class="proj-img-uncropped" loading="lazy" alt="South Western Railways Club">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COMMUNITY -->
+    <div id="proj-community" class="proj-category">
+      
+      <div class="project-block">
+        <h3 class="proj-title">Abbayya Education Society</h3>
+        <p class="proj-desc">An inspiring institutional facility built for modern education needs.</p>
+        <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="proj-image-row horizontal-drag">
+          <img src="Abbayya.jpeg" class="proj-img-uncropped" loading="lazy" alt="Abbayya Education Society">
+          <img src="Abbayya1.jpeg" class="proj-img-uncropped" loading="lazy" alt="Abbayya Education Society">
+          <img src="Abbayya2.jpeg" class="proj-img-uncropped" loading="lazy" alt="Abbayya Education Society">
+        </div>
+      </div>
+
+      <div class="project-block">
+        <h3 class="proj-title">Teachers Bhavan</h3>
+        <p class="proj-desc">A dedicated community space fostering collaboration and growth for educators.</p>
+        <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="proj-image-row horizontal-drag">
+          <img src="teachers.jpeg" class="proj-img-uncropped" loading="lazy" alt="Teachers Bhavan">
+          <img src="teachers1.jpeg" class="proj-img-uncropped" loading="lazy" alt="Teachers Bhavan">
+          <img src="teachers2.jpeg" class="proj-img-uncropped" loading="lazy" alt="Teachers Bhavan">
+          <img src="teachers3.jpeg" class="proj-img-uncropped" loading="lazy" alt="Teachers Bhavan">
+          <img src="teachers4.jpeg" class="proj-img-uncropped" loading="lazy" alt="Teachers Bhavan">
+          <img src="teachers5.jpeg" class="proj-img-uncropped" loading="lazy" alt="Teachers Bhavan">
+          <img src="teachers6.jpeg" class="proj-img-uncropped" loading="lazy" alt="Teachers Bhavan">
+          <img src="teachers7.jpeg" class="proj-img-uncropped" loading="lazy" alt="Teachers Bhavan">
+          <img src="teachers8.jpeg" class="proj-img-uncropped" loading="lazy" alt="Teachers Bhavan">
+          <img src="teachers9.jpeg" class="proj-img-uncropped" loading="lazy" alt="Teachers Bhavan">
         </div>
       </div>
 
@@ -546,13 +622,28 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
     <div id="proj-int" class="proj-category">
       
       <div class="project-block">
+        <h3 class="proj-title">AGMR Office</h3>
+        <p class="proj-desc">A sleek, professional workspace tailored for productivity and modern corporate identity.</p>
+        <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="proj-image-row horizontal-drag">
+          <img src="agmr.jpeg" class="proj-img-uncropped" loading="lazy" alt="AGMR Office">
+          <img src="agmr1.jpeg" class="proj-img-uncropped" loading="lazy" alt="AGMR Office">
+          <img src="agmr2.jpeg" class="proj-img-uncropped" loading="lazy" alt="AGMR Office">
+          <img src="agmr3.jpeg" class="proj-img-uncropped" loading="lazy" alt="AGMR Office">
+          <img src="agmr4.jpeg" class="proj-img-uncropped" loading="lazy" alt="AGMR Office">
+          <img src="agmr5.jpeg" class="proj-img-uncropped" loading="lazy" alt="AGMR Office">
+          <img src="agmr6.jpeg" class="proj-img-uncropped" loading="lazy" alt="AGMR Office">
+        </div>
+      </div>
+
+      <div class="project-block">
         <h3 class="proj-title">Gangavati Silk Palace</h3>
         <p class="proj-desc">A luxurious showroom interior to match the elegance of fine silk sarees.</p>
         <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         <div class="proj-image-row horizontal-drag">
-          <img src="Gangavati.jpeg" class="proj-img-uncropped" alt="Gangavati Silk Palace">
-          <img src="Gangavati1.jpeg" class="proj-img-uncropped" alt="Gangavati Silk Palace">
-          <img src="Gangavati2.jpeg" class="proj-img-uncropped" alt="Gangavati Silk Palace">
+          <img src="Gangavati.jpeg" class="proj-img-uncropped" loading="lazy" alt="Gangavati Silk Palace">
+          <img src="Gangavati1.jpeg" class="proj-img-uncropped" loading="lazy" alt="Gangavati Silk Palace">
+          <img src="Gangavati2.jpeg" class="proj-img-uncropped" loading="lazy" alt="Gangavati Silk Palace">
         </div>
       </div>
 
@@ -561,16 +652,16 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
         <p class="proj-desc">A functional yet sophisticated municipal hall for public and administrative use.</p>
         <div class="swipe-hint">Drag to explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         <div class="proj-image-row horizontal-drag">
-          <img src="office.jpeg" class="proj-img-uncropped" alt="Office Sante Hall">
-          <img src="office1.jpeg" class="proj-img-uncropped" alt="Office Sante Hall">
-          <img src="office2.jpeg" class="proj-img-uncropped" alt="Office Sante Hall">
-          <img src="office3.jpeg" class="proj-img-uncropped" alt="Office Sante Hall">
-          <img src="office4.jpeg" class="proj-img-uncropped" alt="Office Sante Hall">
-          <img src="office5.jpeg" class="proj-img-uncropped" alt="Office Sante Hall">
-          <img src="sante.jpeg" class="proj-img-uncropped" alt="Office Sante Hall">
-          <img src="sante1.jpeg" class="proj-img-uncropped" alt="Office Sante Hall">
-          <img src="sante2.jpeg" class="proj-img-uncropped" alt="Office Sante Hall">
-          <img src="sante3.jpeg" class="proj-img-uncropped" alt="Office Sante Hall">
+          <img src="office.jpeg" class="proj-img-uncropped" loading="lazy" alt="Office Sante Hall">
+          <img src="office1.jpeg" class="proj-img-uncropped" loading="lazy" alt="Office Sante Hall">
+          <img src="office2.jpeg" class="proj-img-uncropped" loading="lazy" alt="Office Sante Hall">
+          <img src="office3.jpeg" class="proj-img-uncropped" loading="lazy" alt="Office Sante Hall">
+          <img src="office4.jpeg" class="proj-img-uncropped" loading="lazy" alt="Office Sante Hall">
+          <img src="office5.jpeg" class="proj-img-uncropped" loading="lazy" alt="Office Sante Hall">
+          <img src="sante.jpeg" class="proj-img-uncropped" loading="lazy" alt="Office Sante Hall">
+          <img src="sante1.jpeg" class="proj-img-uncropped" loading="lazy" alt="Office Sante Hall">
+          <img src="sante2.jpeg" class="proj-img-uncropped" loading="lazy" alt="Office Sante Hall">
+          <img src="sante3.jpeg" class="proj-img-uncropped" loading="lazy" alt="Office Sante Hall">
         </div>
       </div>
 
@@ -581,8 +672,8 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
         
         <div class="ba-slider-wrap" id="baSlider">
           <!-- Replaced with the requested images -->
-          <img class="ba-img" src="Before.jpeg" alt="Before">
-          <img class="ba-img ba-img-after" id="baAfter" src="After.jpeg" alt="After">
+          <img class="ba-img" src="before.jpeg" alt="Before">
+          <img class="ba-img ba-img-after" id="baAfter" src="after.jpeg" alt="After">
           <div class="ba-handle" id="baHandle">
             <div class="ba-handle-btn">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 10H14M4 7l-3 3 3 3M16 7l3 3-3 3" stroke="#A0714F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -601,12 +692,12 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
   <div class="content-wrapper">
     <div class="about-grid">
       <div>
-        <h2 class="page-title">The Vision<br><em>Behind It All</em></h2>
+        <h2 class="page-title">Ar. Srinivas<br><em>Habib</em></h2>
         <div class="about-quote">"Every space tells a story — we help you write it beautifully."</div>
         <p class="page-desc">Ar. Srinivas Habib is the founder and principal architect of Ample Visionz, bringing over a decade of rich experience across commercial, residential, and infrastructure projects throughout Karnataka.<br><br>With a deep commitment to design integrity, Srinivas leads a team that believes architecture is not merely about buildings — it is about shaping human experience, community, and legacy.</p>
       </div>
       <div>
-        <img src="IMG_1464.jpeg" alt="Ar. Srinivas Habib" class="about-img">
+        <img src="founder.jpeg" alt="Ar. Srinivas Habib" class="about-img">
       </div>
     </div>
   </div>
@@ -667,15 +758,15 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
         
         <form id="contact-form" onsubmit="submitForm(event)">
           <div class="form-group">
-            <label class="form-label">Name</label>
+            <label class="form-label" for="c-name">Name</label>
             <input type="text" id="c-name" class="form-input" required placeholder="John Doe">
           </div>
           <div class="form-group">
-            <label class="form-label">Phone</label>
+            <label class="form-label" for="c-phone">Phone</label>
             <input type="tel" id="c-phone" class="form-input" required placeholder="+91 00000 00000">
           </div>
           <div class="form-group">
-            <label class="form-label">Project Details</label>
+            <label class="form-label" for="c-msg">Project Details</label>
             <textarea id="c-msg" class="form-textarea" placeholder="Tell us about location, size, timeline..."></textarea>
           </div>
           <button type="submit" class="btn-submit">Send Message via WhatsApp</button>
@@ -686,13 +777,14 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
         <div class="contact-info-block">
           <h3>Direct Line</h3>
           <p><a href="tel:+919738898087" style="color: var(--text-main); font-weight: 600;">+91 97388 98087</a></p>
+          <button class="btn-submit" onclick="downloadVCard()" style="padding: 0.6rem 1.2rem; font-size: 10px; margin-top: 1rem; border-radius: 30px;">Save Contact</button>
         </div>
         <div class="contact-info-block">
           <h3>Studio</h3>
           <p>First Floor, Swastik Central, L-105,<br>Neeligin Rd, New Cotton Market,<br>Deshpande Nagar, Hubballi – 580 029</p>
         </div>
         <div class="contact-info-block" style="margin-top: 2rem;">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846.331454645229!2d75.13840787590897!3d15.358525085223067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb8d73b0638e4a9%3A0xc3e7f607d70081d!2sSwastik%20Central!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="250" style="border:0; border-radius: 8px; filter: grayscale(80%) contrast(1.1);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846.331454645229!2d75.13840787590897!3d15.358525085223067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb8d73b0638e4a9%3A0xc3e7f607d70081d!2sSwastik%20Central!5e0!3m2!1sen!2sin" width="100%" height="250" style="border:0; border-radius: 8px; filter: grayscale(80%) contrast(1.1);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>
@@ -710,6 +802,11 @@ function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
 }
 
+function toggleMobileNav() {
+  const navList = document.getElementById('hub-nav-list');
+  if (navList) navList.classList.toggle('active');
+}
+
 // ===================== 3. VIEW TRANSITIONS =====================
 function navigateTo(targetViewId) {
   const layer = document.getElementById('transition-layer');
@@ -724,6 +821,10 @@ function navigateTo(targetViewId) {
     document.getElementById(targetViewId).classList.add('active');
     layer.style.transformOrigin = 'top';
     layer.style.transform = 'scaleY(0)';
+    
+    // Hide mobile menu after navigating
+    const navList = document.getElementById('hub-nav-list');
+    if (navList) navList.classList.remove('active');
   }, 800);
 }
 
@@ -845,6 +946,26 @@ function submitForm(e) {
   window.open(`https://wa.me/919738898087?text=${text}`, '_blank');
 }
 
+function downloadVCard() {
+  const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Ar. Srinivas Habib
+ORG:Ample Visionz
+TITLE:Principal Architect
+TEL;TYPE=WORK,VOICE:+919738898087
+ADR;TYPE=WORK:;;First Floor, Swastik Central, L-105, Neeligin Rd, New Cotton Market;Hubballi;Karnataka;580029;India
+END:VCARD`;
+  const blob = new Blob([vcard], { type: 'text/vcard' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = 'Ample_Visionz_Contact.vcf';
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
+
 // ===================== 2. THREE.JS REALISTIC 3D BACKGROUND =====================
 window.addEventListener('load', () => {
   setTimeout(() => {
@@ -870,8 +991,8 @@ window.addEventListener('load', () => {
     night: { sky: 0x081020, fog: 0x081020, light: 0x334466, intensity: 1.0, hemiSky: 0x223355, hemiGround: 0x111122 }
   };
 
-  const skyColor = new THREE.Color(skyColors.golden.sky);
-  const fogColor = new THREE.Color(skyColors.golden.fog);
+  const skyColor = new THREE.Color(skyColors.day.sky);
+  const fogColor = new THREE.Color(skyColors.day.fog);
   scene.background = skyColor;
   scene.fog = new THREE.FogExp2(fogColor, 0.006);
 
@@ -889,16 +1010,16 @@ window.addEventListener('load', () => {
   renderer.outputEncoding = THREE.sRGBEncoding;
   container.appendChild(renderer.domElement);
 
-  const hemiLight = new THREE.HemisphereLight(skyColors.golden.hemiSky, skyColors.golden.hemiGround, 0.4); 
+  const hemiLight = new THREE.HemisphereLight(skyColors.day.hemiSky, skyColors.day.hemiGround, 0.4); 
   scene.add(hemiLight);
 
   const sunGeo = new THREE.SphereGeometry(4, 32, 32);
-  const sunMat = new THREE.MeshBasicMaterial({color: 0xffeedd}); 
+  const sunMat = new THREE.MeshBasicMaterial({color: 0xffffff}); 
   const sun = new THREE.Mesh(sunGeo, sunMat);
-  sun.position.set(-80, 25, -120); 
+  sun.position.set(-20, 80, -100); 
   scene.add(sun);
 
-  const dirLight = new THREE.DirectionalLight(skyColors.golden.light, skyColors.golden.intensity); 
+  const dirLight = new THREE.DirectionalLight(skyColors.day.light, skyColors.day.intensity); 
   dirLight.position.copy(sun.position);
   dirLight.castShadow = true;
   dirLight.shadow.mapSize.width = 2048;
@@ -1373,7 +1494,6 @@ window.addEventListener('load', () => {
   let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0, logoTiltX = 0, logoTiltY = 0;
   const heroLogo = document.getElementById('hero-logo');
 
-  // Fix: Dynamically track the actual center point of the window to ensure balanced hover physics
   document.addEventListener('mousemove', (e) => {
     const hw = window.innerWidth / 2;
     const hh = window.innerHeight / 2;
