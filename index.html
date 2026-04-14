@@ -369,18 +369,18 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg
   .hero-top { margin-top: 0; }
   .hub-nav-wrapper { padding: 1.2rem; margin-bottom: 1rem; border-radius: 20px; }
   
-  /* Mobile Bottom Bar Navigation */
-  .hub-nav { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0; }
-  .mobile-nav-btn { display: block; }
+  /* Mobile Bottom Bar Navigation - Fixed to always show sections */
+  .hub-nav { flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem; }
+  .mobile-nav-btn { display: none; }
   .scroll-prompt { display: none; }
   
-  /* Dropdown Menu styling for Mobile */
+  /* Dropdown Menu styling for Mobile - Changed to visible wrapped list */
   .hub-nav-list { 
-    display: none; flex-direction: column; gap: 1.2rem; align-items: center; justify-content: center; width: 100%; 
-    margin-top: 1rem; padding-top: 1.2rem; border-top: 1px solid rgba(0,0,0,0.1);
+    display: flex; flex-direction: row; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; justify-content: center; width: 100%; 
+    margin-top: 0.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.1);
   }
   .hero-overlay.night-mode .hub-nav-list { border-top-color: rgba(255,255,255,0.1); }
-  .hub-nav-list.active { display: flex; animation: slideDown 0.3s ease; }
+  .hub-nav-list.active { display: flex; animation: none; } /* Override active state animation if triggered */
   
   /* Make time toggle horizontal on mobile and put it at the top right */
   .time-toggle { flex-direction: row; top: 2%; right: 5%; transform: none; padding: 5px; border-radius: 30px; }
