@@ -2,20 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ample Visionz | Architecture & 3D Design</title>
 <meta name="description" content="Premium architecture, interior design, landscape & 3D visualization firm in Hubballi, Karnataka.">
 <meta name="robots" content="index, follow">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="ample-visionz-logo.png">
+<link rel="apple-touch-icon" href="ample-visionz-logo.png">
+<!-- Canonical URL — update with your actual domain before publishing -->
+<link rel="canonical" href="https://amplevisionz.com/">
 <!-- Open Graph / Social Sharing -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ample Visionz | Architecture & 3D Design">
 <meta property="og:description" content="Premium architecture, interior design, landscape & 3D visualization firm in Hubballi, Karnataka.">
-<meta property="og:image" content="logo.png">
+<!-- og:image must be an absolute URL — update with your actual domain before publishing -->
+<meta property="og:image" content="https://amplevisionz.com/ample-visionz-logo.png">
+<meta property="og:url" content="https://amplevisionz.com/">
 <meta property="og:site_name" content="Ample Visionz">
 <!-- WhatsApp / Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ample Visionz | Architecture & 3D Design">
 <meta name="twitter:description" content="Premium architecture, interior design, landscape & 3D visualization firm in Hubballi, Karnataka.">
+<meta name="twitter:image" content="https://amplevisionz.com/ample-visionz-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -425,16 +433,16 @@ html, body { width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; back
     <div class="hero-top">
       <div class="hero-logo-container">
         <!-- Static Logo for Hero -->
-        <img id="hero-logo" src="ample-visionz-logo.png" alt="Ample Visionz Logo">
+        <img id="hero-logo" src="ample-visionz-logo.png" alt="Ample Visionz Logo" width="500" height="200">
       </div>
       <h1 class="hero-tagline">Crafting Timeless Spaces & Immersive Environments</h1>
-      <a onclick="navigateTo('view-estimator')" class="hero-cta">Start Your Project</a>
+      <a href="javascript:void(0)" onclick="navigateTo('view-estimator')" class="hero-cta">Start Your Project</a>
     </div>
 
     <div class="time-toggle">
-      <button class="time-btn active" data-time="day" title="Day">☀️</button>
-      <button class="time-btn" data-time="golden" title="Golden Hour">🌅</button>
-      <button class="time-btn" data-time="night" title="Night">🌙</button>
+      <button class="time-btn active" data-time="day" title="Day" aria-label="Switch to Day mode">☀️</button>
+      <button class="time-btn" data-time="golden" title="Golden Hour" aria-label="Switch to Golden Hour mode">🌅</button>
+      <button class="time-btn" data-time="night" title="Night" aria-label="Switch to Night mode">🌙</button>
     </div>
 
     <!-- Wrapper for beautiful contrast in any lighting mode -->
@@ -448,10 +456,10 @@ html, body { width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; back
         </div>
         <button class="mobile-nav-btn" onclick="toggleMobileNav()">Menu <span style="font-size: 1.2em; vertical-align: middle;">☰</span></button>
         <ul class="hub-nav-list" id="hub-nav-list">
-          <li><a class="hub-nav-link" onclick="navigateTo('view-projects')">Projects</a></li>
-          <li><a class="hub-nav-link" onclick="navigateTo('view-about')">About Us</a></li>
-          <li><a class="hub-nav-link" onclick="navigateTo('view-estimator')">Estimator</a></li>
-          <li><a class="hub-nav-link" onclick="navigateTo('view-contact')">Contact</a></li>
+          <li><a class="hub-nav-link" role="button" href="javascript:void(0)" onclick="navigateTo('view-projects')">Projects</a></li>
+          <li><a class="hub-nav-link" role="button" href="javascript:void(0)" onclick="navigateTo('view-about')">About Us</a></li>
+          <li><a class="hub-nav-link" role="button" href="javascript:void(0)" onclick="navigateTo('view-estimator')">Estimator</a></li>
+          <li><a class="hub-nav-link" role="button" href="javascript:void(0)" onclick="navigateTo('view-contact')">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -460,7 +468,7 @@ html, body { width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; back
 
 <!-- 3. PROJECTS VIEW -->
 <div id="view-projects" class="view content-view">
-  <a class="btn-back" onclick="navigateTo('view-hero')">← Back to Hub</a>
+  <a class="btn-back" href="javascript:void(0)" role="button" onclick="navigateTo('view-hero')">← Back to Hub</a>
   <div class="content-wrapper">
     <h2 class="page-title">Our <em>Projects</em></h2>
     <p class="page-desc">Explore our curated selection of architectural and interior design projects.</p>
@@ -680,9 +688,9 @@ html, body { width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; back
         
         <div class="ba-slider-wrap" id="baSlider">
           <!-- Replaced with the requested images -->
-          <img class="ba-img" src="before.jpeg" alt="Before">
-          <img class="ba-img ba-img-after" id="baAfter" src="after.jpeg" alt="After">
-          <div class="ba-handle" id="baHandle">
+          <img class="ba-img" src="Before.jpeg" alt="Before">
+          <img class="ba-img ba-img-after" id="baAfter" src="After.jpeg" alt="After">
+          <div class="ba-handle" id="baHandle" aria-label="Drag to compare before and after" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
             <div class="ba-handle-btn">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 10H14M4 7l-3 3 3 3M16 7l3 3-3 3" stroke="#A0714F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
@@ -696,7 +704,7 @@ html, body { width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; back
 
 <!-- 4. ABOUT VIEW -->
 <div id="view-about" class="view content-view">
-  <a class="btn-back" onclick="navigateTo('view-hero')">← Back to Hub</a>
+  <a class="btn-back" href="javascript:void(0)" role="button" onclick="navigateTo('view-hero')">← Back to Hub</a>
   <div class="content-wrapper">
     <div class="about-grid">
       <div>
@@ -705,7 +713,7 @@ html, body { width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; back
         <p class="page-desc">Ar. Srinivas Habib is the founder and principal architect of Ample Visionz, bringing over a decade of rich experience across commercial, residential, and infrastructure projects throughout Karnataka.<br><br>With a deep commitment to design integrity, Srinivas leads a team that believes architecture is not merely about buildings — it is about shaping human experience, community, and legacy.</p>
       </div>
       <div>
-        <img src="founder.jpeg" alt="Ar. Srinivas Habib" class="about-img">
+        <img src="founder.jpeg" alt="Ar. Srinivas Habib" class="about-img" width="600" height="600">
       </div>
     </div>
   </div>
@@ -713,7 +721,7 @@ html, body { width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; back
 
 <!-- 5. ESTIMATOR VIEW -->
 <div id="view-estimator" class="view content-view">
-  <a class="btn-back" onclick="navigateTo('view-hero')">← Back to Hub</a>
+  <a class="btn-back" href="javascript:void(0)" role="button" onclick="navigateTo('view-hero')">← Back to Hub</a>
   <div class="content-wrapper">
     <div class="est-grid">
       <div>
@@ -757,7 +765,7 @@ html, body { width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; back
 
 <!-- 6. CONTACT VIEW -->
 <div id="view-contact" class="view content-view">
-  <a class="btn-back" onclick="navigateTo('view-hero')">← Back to Hub</a>
+  <a class="btn-back" href="javascript:void(0)" role="button" onclick="navigateTo('view-hero')">← Back to Hub</a>
   <div class="content-wrapper">
     <div class="contact-grid">
       <div>
